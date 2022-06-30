@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { View, Text, Button, ImageBackground } from "react-native";
 import { getDeckId } from "../../services/axiosClient";
 import { styles } from "./styles";
 import bgImg from "../../images/AAAA.webp";
+import { TreinoContext } from "../../context/TreinoContext";
 
 const Home = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [idDeck, setIdDeck] = useState(null);
+  const { dados } = useContext(TreinoContext);
 
   useEffect(() => {
+    console.log("dados: ", dados);
     const get = async () => {
       setLoading(true);
       const id = await getDeckId();
