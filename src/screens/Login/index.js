@@ -1,10 +1,10 @@
 import { View, Text, Button, TextInput } from "react-native";
 import { useContext, useState, useEffect } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { TreinoContext } from "../../context/TreinoContext";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn } = useAuth();
   const { handleInfo } = useContext(TreinoContext);
   const [info, setInfo] = useState("");
 
