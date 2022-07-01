@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../services/api";
 import { login } from "../services/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext({});
 
@@ -15,6 +16,8 @@ const AuthProvider = ({ children }) => {
       setUser(user);
       //para JWT
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
+      await AsyncStorage.setItem("@Cartas:user", JSON.stringify(user));
+      await AsyncStorage.setItem("@Cartas:token", token);
     }
   };
 

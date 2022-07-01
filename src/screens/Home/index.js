@@ -4,14 +4,24 @@ import { getDeckId } from "../../services/axiosClient";
 import { styles } from "./styles";
 import bgImg from "../../images/AAAA.webp";
 import { TreinoContext } from "../../context/TreinoContext";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [idDeck, setIdDeck] = useState(null);
   const { dados } = useContext(TreinoContext);
 
+  //Demonstração do AsyncStorage
+  // const getStorage = async () => {
+  //   const userBd = await AsyncStorage.getItem("@Cartas:user");
+  //   const tokenBd = await AsyncStorage.getItem("@Cartas:token");
+
+  //   console.log("user", JSON.parse(userBd));
+  //   console.log("token", tokenBd);
+  // };
+
   useEffect(() => {
-    console.log("dados: ", dados);
+    // getStorage();
     const get = async () => {
       setLoading(true);
       const id = await getDeckId();
