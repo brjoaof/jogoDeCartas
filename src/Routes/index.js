@@ -1,13 +1,34 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import RotasPrivadas from "./RotasPrivadas";
 import RotasPublicas from "./RotasPublicas";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ActivityIndicator, View } from "react-native";
 
 const Routes = () => {
-  const { user } = useContext(AuthContext);
+  const { user, setUser, loading, setLoading } = useContext(AuthContext);
 
-  console.log(user);
+  useEffect(() => {
+    if (user) return;
+    const handleRefresh = async () => {
+      const userBd = await AsyncStorage.getItem("@Cartas:user");
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      if (userBd) {
+        setUser(JSON.parse(userBd));
+      }
+      setLoading(false);
+    };
+    handleRefresh();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>

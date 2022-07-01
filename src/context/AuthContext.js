@@ -7,6 +7,7 @@ export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const signIn = async () => {
     console.log("LOGINNNN");
@@ -22,7 +23,9 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn }}>
+    <AuthContext.Provider
+      value={{ user, setUser, signIn, loading, setLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );
